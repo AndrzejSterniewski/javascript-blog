@@ -13,7 +13,7 @@
     "test": "npm run test:html",
     "test:html": "html-validate *.html",
 
-    "build": "npm-run-all build:* test",
+    "build": "npm-run-all build:*",
     "build:sass": "sass --style=compressed --no-source-map sass:css",
     "build:autoprefixer": "postcss css/*.css --use autoprefixer -d css",
 
@@ -21,7 +21,7 @@
     "build-dev:sass": "sass --style=expanded --source-map sass:css",
 
     "watch": "npm-run-all build build-dev -p watch:*",
-    "watch:browsersync": "browser-sync start --server --files \"css/*.css\" \"*.html\"",
+    "watch:browsersync": "browser-sync start --server --files \"css/*.css\" \"*.html\" \"js/*.js\"",
     "watch:sassprefixer": "onchange sass/*.scss -- npm run build-dev"
   },
   "keywords": [],
@@ -35,6 +35,7 @@
     "onchange": "^7.1.0",
     "postcss": "^8.2.6",
     "postcss-cli": "^8.3.1",
-    "sass": "^1.64.1"
+    "sass": "^1.64.1",
+    "html-validate": "^8.2.0"
   }
 }

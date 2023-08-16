@@ -31,7 +31,7 @@
 
     /* [DONE] add class 'active' to the correct article */
     targetArticle.classList.add('active');
-  }
+  };
 
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
@@ -49,7 +49,7 @@
     let html = '';
 
     for (let article of articles) {
-      
+
       /* [DONE] get the article id */
 
       const articleId = article.getAttribute('id');
@@ -74,7 +74,7 @@
     for (let link of links) {
       link.addEventListener('click', titleClickHandler);
     }
-  }
+  };
 
   generateTitleLinks();
 

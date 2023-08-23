@@ -37,7 +37,10 @@
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles',
     optArticleTagsSelector = '.post-tags .list',
-    optArticleAuthorSelector = '.post-author';
+    optArticleAuthorSelector = '.post-author',
+    optTagsListSelector = '.tags.list',
+    optCloudClassCount = 5,
+    optCloudClassPrefix = 'tag-size-';
 
   const generateTitleLinks = function (customSelector = '') {
     /* [DONE] remove contents of titleList */
@@ -65,7 +68,36 @@
   };
   generateTitleLinks();
 
+  const calculateTagsParams = function (tags) {
+    const params = {
+      max: 0,
+      min: 999999
+    };
+    for (let tag in tags) {
+      console.log(tag + ' is used ' + tags[tag] + ' times');
+      if (tags[tag] > params.max) {
+        params.max = tags[tag];
+      }
+      // czy nie dać tu else if ?
+      if (tags[tag] < params.min) {
+        params.min = tags[tag];
+      }
+    }
+    return params;
+  };
+
+  const calculateTagClass = function (count, params) {
+    const normalizedCount = count - params.min;
+    const normalizedMax = params.max - params.min;
+    const percentage = normalizedCount / normalizedMax;
+    const classNumber = Math.floor(percentage * (optCloudClassCount - 1) + 1);
+    return optCloudClassPrefix, classNumber;
+  };
+
   const generateTags = function () {
+    /* [NEW] create a new variable allTags with an empty object */
+    let allTags = {};
+
     /* [DONE] find all articles */
     const articles = document.querySelectorAll(optArticleSelector);
     /* [DONE] START LOOP: for every article: */
@@ -84,14 +116,48 @@
         /* [DONE] generate HTML of the link */
         const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
         console.log(linkHTML);
+        const tagLinkHTML = '<li>' + calculateTagClass(allTags[tag], tagsParam) + '</li>';
+        console.log('tagLinkHTML:', tagLinkHTML);
         /* [DONE] add generated code to html variable */
         html += linkHTML;
+
+        /* [NEW] check if this link is NOT already in allTags */
+        if (!allTags[tag]) {
+          /* [NEW] add generated code to allTags object */
+          allTags[tag] = 1;
+        }
+        else {
+          allTags[tag]++;
+        }
         /* [DONE] END LOOP: for each tag */
       }
       /* [DONE] insert HTML of all the links into the tags wrapper */
       titleList.innerHTML = html;
       /* [DONE] END LOOP: for every article: */
     }
+
+    /* [NEW] find list of tags in right column */
+    const tagList = document.querySelector(optTagsListSelector);
+
+    /* [IN PROGRESS] */
+    const tagsParams = calculateTagsParams(allTags);
+    console.log('tagsParams:', tagsParams);
+
+    /* [NEW] create variable for all links HTML code */
+    let allTagsHTML = '';
+
+    for (let tag in allTags) {
+      /* [NEW] generate code of a link and add it to allTagsHTML */
+      allTagsHTML += '<li><a href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ') </a></li>';
+      const tagLinkHTML = '<li>' + calculateTagClass(allTags[tag], tagsParam) + '</li>';
+      console.log('tagLinkHTML:', tagLinkHTML);
+      allTagsHTML += tagLinkHTML;
+      /* [NEW] END LOOP: for each tag in allTags: */
+    }
+
+    /*[NEW] add HTML from allTagsHTML to tagList */
+    tagList.innerHTML = allTagsHTML;
+
   };
   generateTags();
 
@@ -127,7 +193,6 @@
   const addClickListenersToTags = function () {
     /* [DONE] find all links to tags */
     const allLinkTags = document.querySelectorAll('a[href^="#tag-"]');
-    console.log(allLinkTags);
     /* [DONE] START LOOP: for each link */
     for (let tagLink of allLinkTags) {
       /* [DONE] add tagClickHandler as event listener for that link */
@@ -162,7 +227,6 @@
     const href = clickedElement.getAttribute('href');
     /* [DONE] make a new constant "tag" and extract tag from the "href" constant */
     const tag = href.replace('#author-', '');
-    console.log(tag);
 
     /* [DONE] find all tag links with class active */
     const activeTagLinks = document.querySelectorAll('a.active[href^="#author-"]');
@@ -196,3 +260,4 @@
   };
   addClickListenersToAuthors();
 }
+

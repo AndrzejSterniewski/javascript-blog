@@ -74,7 +74,7 @@
       min: 999999
     };
     for (let tag in tags) {
-      console.log(tag + ' is used ' + tags[tag] + ' times');
+    //  console.log(tag + ' is used ' + tags[tag] + ' times');
       if (tags[tag] > params.max) {
         params.max = tags[tag];
       }
@@ -112,10 +112,8 @@
       const articleTagsArray = articleTags.split(' ');
       /* [DONE] START LOOP: for each tag */
       for (let tag of articleTagsArray) {
-        console.log(tag);
         /* [DONE] generate HTML of the link */
         const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
-        console.log(linkHTML);
         /* [DONE] add generated code to html variable */
         html += linkHTML;
 
@@ -138,14 +136,15 @@
 
     /* [IN PROGRESS] */
     const tagsParams = calculateTagsParams(allTags);
-    console.log('tagsParams:', tagsParams);
 
     /* [NEW] create variable for all links HTML code */
     let allTagsHTML = '';
 
     for (let tag in allTags) {
       /* [NEW] generate code of a link and add it to allTagsHTML */
-      allTagsHTML += '<li><a class="'+ calculateTagClass(allTags[tag], tagsParams) +'" href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ') </a></li>';
+      allTagsHTML += '<li><a class="'+ calculateTagClass(allTags[tag], tagsParams) +'" href="#tag-' + tag + '">' + tag + '</a></li>';
+    //  link + counter of tags
+    //  allTagsHTML += '<li><a class="'+ calculateTagClass(allTags[tag], tagsParams) +'" href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ') </a></li>';
       /* [NEW] END LOOP: for each tag in allTags: */
     }
 

@@ -13,7 +13,6 @@
     }
 
     /* [DONE] add class 'active' to the clicked link */
-
     clickedElement.classList.add('active');
 
     /* [DONE] remove class 'active' from all articles */
@@ -96,7 +95,7 @@
   };
 
   const generateTags = function () {
-    /* [NEW] create a new variable allTags with an empty object */
+    /* [DONE] create a new variable allTags with an empty object */
     let allTags = {};
 
     /* [DONE] find all articles */
@@ -118,9 +117,9 @@
         /* [DONE] add generated code to html variable */
         html += linkHTML;
 
-        /* [NEW] check if this link is NOT already in allTags */
+        /* [DONE] check if this link is NOT already in allTags */
         if (!allTags[tag]) {
-          /* [NEW] add generated code to allTags object */
+          /* [DONE] add generated code to allTags object */
           allTags[tag] = 1;
         } else {
           allTags[tag]++;
@@ -132,23 +131,23 @@
       /* [DONE] END LOOP: for every article: */
     }
 
-    /* [NEW] find list of tags in right column */
+    /* [DONE] find list of tags in right column */
     const tagList = document.querySelector(optTagsListSelector);
 
-    /* [NEW] */
+    /* [DONE] */
     const tagsParams = calculateTagsParams(allTags);
 
-    /* [NEW] create variable for all links HTML code */
+    /* [DONE] create variable for all links HTML code */
     let allTagsHTML = '';
 
     for (let tag in allTags) {
-      /* [NEW] generate code of a link and add it to allTagsHTML */
+      /* [DONE] generate code of a link and add it to allTagsHTML */
       allTagsHTML += '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '">' + tag + '</a></li>';
-      //  link + counter of tags
+      //  link + counter of tags:
       //  allTagsHTML += '<li><a class="'+ calculateTagClass(allTags[tag], tagsParams) +'" href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ') </a></li>';
-      /* [NEW] END LOOP: for each tag in allTags: */
+      /* [DONE] END LOOP: for each tag in allTags: */
     }
-    /*[NEW] add HTML from allTagsHTML to tagList */
+    /*[DONE] add HTML from allTagsHTML to tagList */
     tagList.innerHTML = allTagsHTML;
   };
   generateTags();
@@ -224,8 +223,8 @@
 
     for (let author in allAuthors) {
       /* [NEW] generate code of a link and add it to allTagsHTML */
-    //  allAuthorsHTML += '<li><a href="#tag-' + author + '">' + author + '</a></li>';
-      allAuthorsHTML += '<li><a href="#tag-' + author + '">' + author + ' (' + allAuthors[author] + ') </a></li>';
+      //  allAuthorsHTML += '<li><a href="#author-' + author + '">' + author + '</a></li>';
+      allAuthorsHTML += '<li><a href="#author-' + author + '">' + author + ' </a> (' + allAuthors[author] + ')</li>';
     }
     /*[NEW] add HTML from allTagsHTML to tagList */
     authorsList.innerHTML = allAuthorsHTML;

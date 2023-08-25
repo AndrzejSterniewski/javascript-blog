@@ -3,6 +3,7 @@
   const templates = {
     articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
     tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+    authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
   }
 
   const titleClickHandler = function (event) {
@@ -61,8 +62,8 @@
       const articleTitle = article.querySelector(optTitleSelector).innerHTML;
       /* [DONE] create HTML of the link */
       // const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
-      // the same above changed to handlebar
-      const linkHTMLData = {id: articleId, title: articleTitle};
+      // the same above changed to handlebar:
+      const linkHTMLData = { id: articleId, title: articleTitle };
       const linkHTML = templates.articleLink(linkHTMLData);
       /* [DONE] insert link into titleList */
       html += linkHTML;
@@ -121,8 +122,8 @@
       for (let tag of articleTagsArray) {
         /* [DONE] generate HTML of the link */
         // const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
-        // the same above changed to handlebar
-        const linkHTMLData = {id: 'tag-'+ tag, title: tag};
+        // the same above changed to handlebar:
+        const linkHTMLData = { id: 'tag-' + tag, title: tag };
         const linkHTML = templates.articleLink(linkHTMLData);
 
         /* [DONE] add generated code to html variable */
@@ -213,7 +214,10 @@
       /*  [DONE] make html variable with empty string */
       let html = '';
       const articleAuthor = article.getAttribute('data-author');
-      const linkHTML = 'by <a href="#author-' + articleAuthor + '">' + articleAuthor + '</a>';
+      //  const linkHTML = 'by <a href="#author-' + articleAuthor + '">' + articleAuthor + '</a>';
+      // the same above changed to handlebar:
+      const linkHTMLData = { id: 'author-' + articleAuthor, author: articleAuthor };
+      const linkHTML = templates.authorLink(linkHTMLData);
       /*   [DONE] add generated code to html variable */
       html += linkHTML;
       const authorWrapper = article.querySelector(optArticleAuthorSelector);

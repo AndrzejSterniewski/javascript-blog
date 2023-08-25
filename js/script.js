@@ -4,6 +4,7 @@
     articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
     tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
     authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
+    tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
   }
 
   const titleClickHandler = function (event) {
@@ -150,17 +151,30 @@
     const tagsParams = calculateTagsParams(allTags);
 
     /* [DONE] create variable for all links HTML code */
-    let allTagsHTML = '';
+    //let allTagsHTML = '';
+    // instead of above:
+    const allTagsData = {tags: []};
 
     for (let tag in allTags) {
       /* [DONE] generate code of a link and add it to allTagsHTML */
       allTagsHTML += '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '">' + tag + '</a></li>';
       //  link + counter of tags:
       //  allTagsHTML += '<li><a class="'+ calculateTagClass(allTags[tag], tagsParams) +'" href="#tag-' + tag + '">' + tag + ' (' + allTags[tag] + ') </a></li>';
+
+      // handlebar change:
+      allTagsData.tags.push({
+        tag: tag,
+        count: allTags[tag],
+        className: calculateTagClass(allTags[tag], tagsParams)
+      });
+
       /* [DONE] END LOOP: for each tag in allTags: */
     }
     /*[DONE] add HTML from allTagsHTML to tagList */
-    tagList.innerHTML = allTagsHTML;
+    //tagList.innerHTML = allTagsHTML;
+    // handlebar change:
+    tagList.innerHTML = templates.tagCloudLink(allTagsData);
+    console.log(allTagsData);
   };
   generateTags();
 
@@ -237,11 +251,11 @@
     let allAuthorsHTML = '';
 
     for (let author in allAuthors) {
-      /* [NEW] generate code of a link and add it to allTagsHTML */
+      /* [NEW] generate code of a link and add it to allAuthorsHTML */
       //  allAuthorsHTML += '<li><a href="#author-' + author + '">' + author + '</a></li>';
       allAuthorsHTML += '<li><a href="#author-' + author + '">' + author + ' </a> (' + allAuthors[author] + ')</li>';
     }
-    /*[NEW] add HTML from allTagsHTML to tagList */
+    /*[NEW] add HTML from allAuthorsHTML to authorsList */
     authorsList.innerHTML = allAuthorsHTML;
   };
   generateAuthors();

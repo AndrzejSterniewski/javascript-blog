@@ -250,6 +250,11 @@
   <script id="template-author-link" type="text/x-handlebars-template">
     <li>by <a href="#{{ id }}"><span>{{ author }}</span></a></li>
   </script>
+  <script id="template-tag-cloud-link" type="text/x-handlebars-template">
+    {{#each tags}}
+    <li>{{ tag }}</li>
+    {{/each}}
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
   <script src="js/script.js"></script>
 </body>

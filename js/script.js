@@ -1,5 +1,9 @@
 {
   'use strict';
+  const templates = {
+    articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+    tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+  }
 
   const titleClickHandler = function (event) {
     event.preventDefault();
@@ -56,7 +60,10 @@
       /* [DONE] get the title from the title element */
       const articleTitle = article.querySelector(optTitleSelector).innerHTML;
       /* [DONE] create HTML of the link */
-      const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+      // const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+      // the same above changed to handlebar
+      const linkHTMLData = {id: articleId, title: articleTitle};
+      const linkHTML = templates.articleLink(linkHTMLData);
       /* [DONE] insert link into titleList */
       html += linkHTML;
     }
@@ -113,7 +120,11 @@
       /* [DONE] START LOOP: for each tag */
       for (let tag of articleTagsArray) {
         /* [DONE] generate HTML of the link */
-        const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+        // const linkHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+        // the same above changed to handlebar
+        const linkHTMLData = {id: 'tag-'+ tag, title: tag};
+        const linkHTML = templates.articleLink(linkHTMLData);
+
         /* [DONE] add generated code to html variable */
         html += linkHTML;
 

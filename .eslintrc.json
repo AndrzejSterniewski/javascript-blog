@@ -27,6 +27,9 @@
         "no-console": [
             "off"
         ],
+        "globals": {
+          "Handlebars": false
+        },
         "no-prototype-builtins": ["off"]
     }
 }
